@@ -9,7 +9,7 @@ namespace DocumentPipeline.Domain.Services
         private readonly IEnumerable<IDocumentProcessor> _processors;
         public DocumentPipeline(IEnumerable<IDocumentProcessor> processors)
         {
-            _processors = processors ?? throw new ArgumentNullException(nameof(processors));
+            _processors = processors;
         }
         
         public void ProcessDocument(Document document)
