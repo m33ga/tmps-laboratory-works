@@ -1,11 +1,9 @@
 using DocumentPipeline.Domain.Models;
 
-namespace DocumentPipeline.Domain.Interfaces
-{
-    public interface IDocumentProcessor
-    {
-        bool CanProcess(DocumentType type);
+namespace DocumentPipeline.Domain.Interfaces;
 
-        void Process(Document document);
-    }
+public interface IDocumentProcessor
+{
+    DocumentContent Process(DocumentContent content);
+    bool CanProcess(DocumentType type);
 }
