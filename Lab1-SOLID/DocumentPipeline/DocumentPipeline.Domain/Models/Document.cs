@@ -1,21 +1,33 @@
-namespace DocumentPipeline.Domain.Models
+namespace DocumentPipeline.Domain.Models;
+
+public class Document
 {
-    public class Document
+    public string Name { get; set; }
+    public DocumentType Type { get; set; }
+    public string FilePath { get; set; }
+
+    public Document(string filePath)
     {
-        public string Name { get; set; }
-        public DocumentType Type { get; set; }
-        public int SizeKb { get; set; }
+        FilePath = filePath;
+        Name = Path.GetFileName(filePath);
+        Type = DetermineTypeFromExtension(filePath);
+    }
 
-        public Document(string name, DocumentType type, int sizeKb)
+    private DocumentType DetermineTypeFromExtension(string filePath)
+    {
+        string extension = Path.GetExtension(filePath).ToLowerInvariant();
+            
+        return extension switch
         {
-            Name = name;
-            Type = type;
-            SizeKb = sizeKb;
-        }
+            ".txt" => DocumentType.Txt,
+            ".json" => DocumentType.Json,
+            ".csv" => DocumentType.Csv,
+            _ => throw new NotSupportedException($"File extension {extension} is not supported")
+        };
+    }
 
-        public override string ToString()
-        {
-            return $"{Name} ({Type}, {SizeKb}KB)";
-        }
+    public override string ToString()
+    {
+        return $"{Name} ({Type})";
     }
 }
