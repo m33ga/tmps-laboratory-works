@@ -9,6 +9,22 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DocumentPipeline.Domain\DocumentPipeline.Domain.csproj" />
+      <ProjectReference Include="..\DocumentPipeline.Infrastructure\DocumentPipeline.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="bin\Debug\net8.0\Minio.dll" />
+      <Content Include="bin\Debug\net8.0\System.Reactive.dll" />
+      <None Remove="appsettings.json" />
+      <Content Include="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="bin\Debug\net8.0\TestFiles\sample_csv.csv" />
+      <None Include="bin\Debug\net8.0\TestFiles\sample_json.json" />
+      <None Include="bin\Debug\net8.0\TestFiles\sample_txt.txt" />
     </ItemGroup>
 
 </Project>

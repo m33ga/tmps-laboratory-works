@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentPipeline.Console", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentPipeline.Domain", "DocumentPipeline.Domain\DocumentPipeline.Domain.csproj", "{A36B6257-E46F-4D95-9644-DE19CE0EE168}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentPipeline.Infrastructure", "DocumentPipeline.Infrastructure\DocumentPipeline.Infrastructure.csproj", "{6B3747D9-10F7-4306-BCFB-899EC0F3DC4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{A36B6257-E46F-4D95-9644-DE19CE0EE168}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A36B6257-E46F-4D95-9644-DE19CE0EE168}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A36B6257-E46F-4D95-9644-DE19CE0EE168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B3747D9-10F7-4306-BCFB-899EC0F3DC4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B3747D9-10F7-4306-BCFB-899EC0F3DC4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B3747D9-10F7-4306-BCFB-899EC0F3DC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B3747D9-10F7-4306-BCFB-899EC0F3DC4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
