@@ -27,4 +27,18 @@ public class Order
     {
         return Items.Sum(i => i.Price);
     }
+
+    public void Display()
+    {
+        Console.WriteLine($"Order: {OrderId}");
+        Console.WriteLine($"Customer: {CustomerName}");
+        Console.WriteLine($"Status: {Status}");
+        Console.WriteLine("Items:");
+        foreach (var item in Items)
+        {
+            Console.WriteLine($"  Quantity: {item.Quantity}");
+            item.Product.Display(2);
+        }
+        Console.WriteLine($"Total: ${GetTotal()}");
+    }
 }
