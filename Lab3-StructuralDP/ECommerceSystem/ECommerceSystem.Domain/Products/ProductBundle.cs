@@ -2,13 +2,16 @@ namespace ECommerceSystem.Domain.Products;
 
 public class ProductBundle : IProductComponent
 {
+    private static int _idCounter = 1;
+
     public string Id { get; }
     public string Name { get; }
     private readonly List<IProductComponent> _components;
 
-    public ProductBundle(string id, string name)
+    public ProductBundle(string name)
     {
-        Id = id;
+        Id = $"BUN{_idCounter:D3}";
+        _idCounter++;
         Name = name;
         _components = new List<IProductComponent>();
     }

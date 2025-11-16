@@ -2,13 +2,16 @@ namespace ECommerceSystem.Domain.Products;
 
 public class Product : IProductComponent
 {
+    private static int _idCounter = 1;
+
     public string Id { get; }
     public string Name { get; }
     public decimal Price { get; }
 
-    public Product(string id, string name, decimal price)
+    public Product(string name, decimal price)
     {
-        Id = id;
+        Id = $"PRD{_idCounter:D3}";
+        _idCounter++;
         Name = name;
         Price = price;
     }
