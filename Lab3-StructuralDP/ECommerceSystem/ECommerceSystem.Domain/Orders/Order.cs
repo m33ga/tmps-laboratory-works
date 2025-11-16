@@ -2,6 +2,8 @@ namespace ECommerceSystem.Domain.Orders;
 
 public class Order
 {
+    private static int _idCounter = 1;
+
     public string OrderId { get; }
     public string CustomerName { get; }
     public List<OrderItem> Items { get; }
@@ -9,9 +11,10 @@ public class Order
     public DateTime CreatedAt { get; }
     public string? TrackingNumber { get; set; }
 
-    public Order(string orderId, string customerName)
+    public Order(string customerName)
     {
-        OrderId = orderId;
+        OrderId = $"ORD{_idCounter:D3}";
+        _idCounter++;
         CustomerName = customerName;
         Items = new List<OrderItem>();
         Status = OrderStatus.Pending;
