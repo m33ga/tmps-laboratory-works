@@ -4,6 +4,7 @@ using ECommerceSystem.Domain.Payment;
 using ECommerceSystem.Domain.Notifications;
 using ECommerceSystem.Domain.Inventory;
 using ECommerceSystem.Domain.Shipping;
+using ECommerceSystem.Domain.Validation;
 using ECommerceSystem.Application.Services;
 using ECommerceSystem.Application.Facades;
 
@@ -42,7 +43,12 @@ class DemoScenarios
         _inventorySystem = new InventorySystem();
         var shippingService = new ShippingService();
         var notificationService = new NotificationService();
-        _checkoutFacade = new CheckoutFacade(_inventorySystem, shippingService, notificationService);
+
+        var stockValidator = new StockAvailabilityValidator(_inventorySystem);
+        var addressValidator = new ShippingAddressValidator();
+        stockValidator.SetNext(addressValidator);
+
+        _checkoutFacade = new CheckoutFacade(_inventorySystem, shippingService, notificationService, stockValidator);
 
         products = new List<Product>();
         bundles = new List<ProductBundle>();
@@ -162,11 +168,13 @@ class DemoScenarios
         ProcessOrder1();
         ProcessOrder2();
         ProcessOrder3();
+        ProcessOrder4();
+        ProcessOrder5();
     }
 
     private void ProcessOrder1()
     {
-        var order = new Order("Kanye West");
+        var order = new Order("Kanye West", "123 Main St, New York", "USA", OrderType.Standard);
         order.AddItem(new OrderItem(keyboard, 2));
         order.AddItem(new OrderItem(mouse, 2));
 
@@ -181,13 +189,13 @@ class DemoScenarios
 
     private void ProcessOrder2()
     {
-        var order = new Order("Jared Leto");
+        var order = new Order("Jared Leto", "456 Oak Ave, Toronto", "Canada", OrderType.Express);
         order.AddItem(new OrderItem(proBundle, 1));
 
         order.Display();
         System.Console.WriteLine();
 
-        var paymentGateway = new StripeGateway();
+        var paymentGateway = new CreditCardPaymentStrategy();
         var notificationSender = new SmsSender();
 
         _checkoutFacade.PlaceOrder(order, paymentGateway, notificationSender);
@@ -195,7 +203,7 @@ class DemoScenarios
 
     private void ProcessOrder3()
     {
-        var order = new Order("Marcel Bostan");
+        var order = new Order("Marcel Bostan", "789 Elm St, London", "UK", OrderType.PreOrder);
         order.AddItem(new OrderItem(ultraBundle, 1));
         order.AddItem(new OrderItem(headset, 2));
 
@@ -204,6 +212,34 @@ class DemoScenarios
 
         var paymentGateway = new PayPalGateway();
         var notificationSender = new PushNotificationSender();
+
+        _checkoutFacade.PlaceOrder(order, paymentGateway, notificationSender);
+    }
+
+    private void ProcessOrder4()
+    {
+        var order = new Order("Till Lindemann", "321 Pine Rd, Berlin", "Germany", OrderType.Standard);
+        order.AddItem(new OrderItem(monitor, 5));
+
+        order.Display();
+        System.Console.WriteLine();
+
+        var paymentGateway = new StripeGateway();
+        var notificationSender = new EmailSender();
+
+        _checkoutFacade.PlaceOrder(order, paymentGateway, notificationSender);
+    }
+
+    private void ProcessOrder5()
+    {
+        var order = new Order("Satoshi Nakamoto", "555 Maple Dr, Tokyo", "Japan", OrderType.Standard);
+        order.AddItem(new OrderItem(headset, 1));
+
+        order.Display();
+        System.Console.WriteLine();
+
+        var paymentGateway = new CryptoPaymentStrategy();
+        var notificationSender = new SmsSender();
 
         _checkoutFacade.PlaceOrder(order, paymentGateway, notificationSender);
     }
