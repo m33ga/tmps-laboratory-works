@@ -10,12 +10,18 @@ public class Order
     public OrderStatus Status { get; set; }
     public DateTime CreatedAt { get; }
     public string? TrackingNumber { get; set; }
+    public string ShippingAddress { get; set; }
+    public string ShippingRegion { get; set; }
+    public OrderType OrderType { get; set; }
 
-    public Order(string customerName)
+    public Order(string customerName, string shippingAddress, string shippingRegion, OrderType orderType = OrderType.Standard)
     {
         OrderId = $"ORD{_idCounter:D3}";
         _idCounter++;
         CustomerName = customerName;
+        ShippingAddress = shippingAddress;
+        ShippingRegion = shippingRegion;
+        OrderType = orderType;
         Items = new List<OrderItem>();
         Status = OrderStatus.Pending;
         CreatedAt = DateTime.Now;
